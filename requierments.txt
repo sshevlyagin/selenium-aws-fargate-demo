@@ -1,1 +1,2 @@
 selenium==3.141.0
+git+https://github.com/AutomatedTester/browsermob-proxy-py.git@48accb7f17e776397f98ece63eabcd755d606f3e#egg=browsermob-proxy
