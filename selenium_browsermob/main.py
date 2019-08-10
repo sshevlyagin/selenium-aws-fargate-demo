@@ -42,6 +42,13 @@ def browser_and_proxy():
         server.stop()
 
 
+def scan_har(proxy):
+    for e in proxy.har['log']['entries']:
+        if 'explore_tabs' in e['request']['url']:
+            print('Request URL: {}'.format(e['request']['url']))
+            print('Status: {}'.format(e['response']['status']))
+
+
 def scan_and_block_har(proxy):
     all_requests_finished = False
     while all_requests_finished is False:
