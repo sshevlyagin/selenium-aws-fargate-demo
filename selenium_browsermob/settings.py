@@ -5,4 +5,3 @@ class Config(object):
 
 class Docker(Config):
     CHROME_PATH = '/usr/local/bin/chromedriver'
-    BROWSERMOB_PATH = '/usr/local/bin/browsermob-proxy-2.1.4/bin/browsermob-proxy'

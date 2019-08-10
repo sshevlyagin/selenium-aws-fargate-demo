@@ -42,13 +42,26 @@ def browser_and_proxy():
         server.stop()
 
 
+def scan_and_block_har(proxy):
+    all_requests_finished = False
+    while all_requests_finished is False:
+        all_requests_finished = True
+        for e in proxy.har['log']['entries']:
+            if 'explore_tabs' in e['request']['url']:
+                if e['response']['status'] != 200 or e['response']['content'].get('text') is None:
+                    all_requests_finished = False
+    return
+
+
 def demo():
     with browser_and_proxy() as (browser, proxy):
         browser.get('https://www.airbnb.com/s/Seattle--WA--United-States/homes')
         first_listing_page_1 = browser.find_element_by_xpath('//div[contains(@id,"listing")]')
+        scan_and_block_har(proxy)
         print('First Listing Page 1: {}'.format(first_listing_page_1.text))
         page_2 = browser.find_element_by_xpath('//li[@data-id="page-2"]')
         page_2.click()
+        scan_and_block_har(proxy)
         first_listing_page_2 = browser.find_element_by_xpath('//div[contains(@id,"listing")]')
         print('First Listing Page 2: {}'.format(first_listing_page_2.text))
 
